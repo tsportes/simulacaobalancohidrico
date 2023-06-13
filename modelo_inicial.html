@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src='assets/js/plotly-2.24.1.min.js'></script>
+    <title>Plotly</title>
+</head>
+
+<body>
+    <div id='chart'>
+        <!-- Plotly chart will be drawn inside this DIV -->
+    </div>
+
+    <!-- Exemplo de campos de entrada para ajustar todos os valores -->
+    <label for="volEntrada">VOL ENTRADA: </label>
+    <input type="range" id="volEntrada" name="volEntrada" min="0" max="500000" value="256533" oninput="updateData()">
+
+    <label for="consAutorizado">CONS AUTORIZADO: </label>
+    <input type="range" id="consAutorizado" name="consAutorizado" min="0" max="500000" value="171218" oninput="updateData()">
+
+    <!-- Adicione mais campos de entrada como os acima para cada valor -->
+
+</body>
+<script>
+    var data = [{
+        "type": "sunburst",
+        "labels": [
+            "VOL ENTRADA",
+            "CONS AUTORIZADO",
+            "VOL PERDAS",
+            "FATURADO",
+            "NÃO FATURADO",
+            "APARENTES",
+            "REAIS",
+            "EXPORTADO",
+            "FAT MEDIDO",
+            "FAT NÃO MEDIDO",
+            "NÃO FAT MEDIDO",
+            "NÃO FAT NÃO MEDIDO",
+            "SUBMEDIÇÃO",
+            "CLANDESTINOS",
+            "FRAUDES",
+            "VAZ RAMAIS",
+            "VAZ REDES",
+            "VAZ RESERVATORIOS",
+        ],
+        "parents": [
+            "",
+            "VOL ENTRADA",
+            "VOL ENTRADA",
+            "CONS AUTORIZADO",
+            "CONS AUTORIZADO",
+            "VOL PERDAS",
+            "VOL PERDAS",
+            "FATURADO",
+            "FATURADO",
+            "FATURADO",
+            "NÃO FATURADO",
+            "NÃO FATURADO",
+            "APARENTES",
+            "APARENTES",
+            "APARENTES",
+            "REAIS",
+            "REAIS",
+            "REAIS",
+        ],
+        "values": [256533, 171218, 85315, 157764, 13454, 25521, 59794, 756, 156731, 275, 493, 12960, 19732, 2653, 3134, 47835, 10555, 1403],
+        "leaf": {
+            "opacity": 0.4
+        },
+        "marker": {
+            "line": {
+                "width": 1.5
+            }
+        },
+        "branchvalues": 'total'
+    }];
+
+    var layout = {
+        "margin": {
+            "l": 0,
+            "r": 0,
+            "b": 0,
+            "t": 0
+        },
+    };
+
+    Plotly.newPlot('chart', data, layout, {
+        showSendToCloud: true
+    });
+
+    function updateData() {
+        var volEntradaInput = document.getElementById('volEntrada');
+        data[0].values[0] = volEntradaInput.value; // Atualizar o valor de "VOL ENTRADA"
+
+        var consAutorizadoInput = document.getElementById('consAutorizado');
+        data[0].values[1] = consAutorizadoInput.value; // Atualizar o valor de "CONS AUTORIZADO"
+
+        // Atualize mais valores como os acima para cada campo de entrada
+
+        Plotly.react('chart', data, layout); // Replotar o gráfico com os novos dados
+    }
+</script>
+
+</html>
