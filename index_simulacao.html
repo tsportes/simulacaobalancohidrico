@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador do Índice de Perdas de Água</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/styles_v0.css">
+</head>
+
+<body>
+    <h1>Índice de Perdas de Água</h1>
+    <form style="--min: 10000; --max: 20000; --val: 0">
+        <div class="container">
+            <div class="slider-container">
+                <label for="volumeConsumido">Volume Consumido (x 1 000 m³):</label>
+                <input type="range" min="10000" max="20000" value="13500" class="slider" id="volumeConsumido" list="l">
+                <datalist id="l">
+                <option label="min" value="0">
+                </option><option label="max" value="100">
+              </option></datalist>
+                <span id="consumidoValue">13500</span>
+            </div>
+            <div class="slider-container">
+                <label for="volumeProduzido">Volume Produzido (x 1 000 m³):</label>
+                <input type="range" min="15000" max="30000" value="20000" class="slider" id="volumeProduzido" list="l">
+                <datalist id="l">
+                <option label="min" value="0">
+                </option><option label="max" value="100">
+              </option></datalist>
+                <span id="produzidoValue">20000</span>
+            </div>
+        </div>
+    </form>
+    <div id="gauge" style="width:450px; height:300px;"></div>
+</body>
+<script src="assets/js/index_simulacao.js"></script>
+
+</html>
