@@ -1,24 +1,24 @@
 var data = [{
     "type": "sunburst",
     "labels": [
-        "VOL ENTRADA",
-        "CONS AUTORIZADO",
-        "VOL PERDAS",
-        "FATURADO",
-        "NÃO FATURADO",
-        "APARENTES",
-        "REAIS",
-        "EXPORTADO",
-        "FAT MEDIDO",
-        "FAT NÃO MEDIDO",
-        "NÃO FAT MEDIDO",
-        "NÃO FAT NÃO MEDIDO",
-        "SUBMEDIÇÃO",
-        "CLANDESTINOS",
-        "FRAUDES",
-        "VAZ RAMAIS",
-        "VAZ REDES",
-        "VAZ RESERVATORIOS",
+        "VOL ENTRADA", // 0
+        "CONS AUTORIZADO", // 1
+        "VOL PERDAS", // 2
+        "FATURADO", // 3
+        "NÃO FATURADO", // 4
+        "APARENTES", // 5
+        "REAIS", // 6
+        "EXPORTADO", // 7
+        "FAT MEDIDO", // 8
+        "FAT NÃO MEDIDO", // 9
+        "NÃO FAT MEDIDO", // 10
+        "NÃO FAT NÃO MEDIDO", // 11
+        "SUBMEDIÇÃO", // 12
+        "CLANDESTINOS", // 13
+        "FRAUDES", // 14
+        "VAZ RAMAIS", // 15
+        "VAZ REDES", // 16
+        "VAZ RESERVATORIOS", //17
     ],
     "parents": [
         "",
@@ -66,13 +66,70 @@ Plotly.newPlot('chart', data, layout, {
 });
 
 function updateData() {
-    var volEntradaInput = document.getElementById('volEntrada');
-    data[0].values[0] = volEntradaInput.value; // Atualizar o valor de "VOL ENTRADA"
 
-    var consAutorizadoInput = document.getElementById('consAutorizado');
-    data[0].values[1] = consAutorizadoInput.value; // Atualizar o valor de "CONS AUTORIZADO"
+    var volEntrada = document.getElementById('volEntrada').value;
 
-    // Atualize mais valores como os acima para cada campo de entrada
+    var volAguaExportada = document.getElementById('volAguaExportada').value;
+
+    var volFaturadoMedido = document.getElementById('volFaturadoMedido').value;
+
+    var volFaturadoNaoMedido = document.getElementById('volFaturadoNaoMedido').value;
+
+    var volNaoFaturadoMedido = document.getElementById('volNaoFaturadoMedido').value;
+
+    var volNaoFaturadoNaoMedido = document.getElementById('volNaoFaturadoNaoMedido').value;
+
+    var vazReservatorios = parseInt(document.getElementById('vazReservatorios').value);
+
+    var percentualIDMinput = document.getElementById('percentualIDM').value;
+    var idm = parseFloat(percentualIDMinput);
+
+    var percentualFraudes = parseFloat(document.getElementById('percentualFraudes').value);
+
+    var qtdeRamaisPressurizados = parseInt(document.getElementById('qtdeRamaisPressurizados').value);
+
+    var estimativaClandestinas = (qtdeRamaisPressurizados * 0.01);
+    var volClandestinas = parseInt(estimativaClandestinas * 34); // Calcula os clandestinos
+    data[0].values[13] = volClandestinas; // Atualizar o valor de "Clandestinos"
+
+    var estimativaFraudes = (percentualFraudes / 100);
+    var volFraudes = parseInt(estimativaFraudes * volFaturadoMedido); // Calcula as fraudes
+    data[0].values[14] = volFraudes; // Atualizar o valor de "Fraudes"
+
+    var consAutorizadoNaoFaturado = parseInt(volNaoFaturadoMedido + volNaoFaturadoNaoMedido);
+    data[0].values[4] = consAutorizadoNaoFaturado; // Atualizar o valor de "CONS AUTORIZADO"
+
+    var consAutorizadoFaturado = parseInt(volAguaExportada + volFaturadoMedido + volFaturadoNaoMedido);
+    data[0].values[3] = consAutorizadoFaturado; // Atualizar o valor de "CONS AUTORIZADO"
+
+    var consAutorizado = parseInt(consAutorizadoFaturado + consAutorizadoNaoFaturado);
+    data[0].values[1] = consAutorizado; // Atualizar o valor de "Consumo autorizado"
+
+    var volPerdas = parseInt(volEntrada - consAutorizado);
+    data[0].values[2] = volPerdas; // Atualizar o valor de "Perdas"
+
+    var volSubmedicao = parseInt((consAutorizadoFaturado * (100 / idm)) - consAutorizadoFaturado); // Calcula a submedição
+    data[0].values[12] = volSubmedicao; // Atualizar o valor de "Submedição"
+
+    var volPerdasAparentes = parseInt(volSubmedicao + volClandestinas + volFraudes);
+    data[0].values[5] = volPerdasAparentes; // Atualizar o valor de "Perdas aparentes"
+
+    var volPerdasReais = parseInt(volPerdas - volPerdasAparentes);
+    data[0].values[6] = volPerdasReais; // Atualizar o valor de "Perdas reais"
+
+    var volVazamentoRamais = parseInt((volPerdas - volPerdasAparentes) * 0.8);
+    data[0].values[15] = volVazamentoRamais; // Atualizar o valor de "Vazamento em ramais"
+
+    var volVazamentoRedes = parseInt(volPerdas - volPerdasReais - volVazamentoRamais);
+    data[0].values[16] = volVazamentoRedes; // Atualizar o valor de "Vazamento em redes"
+
+    data[0].values[0] = parseInt(volEntrada); // Atualizar o "Volume de entrada"
+    data[0].values[7] = parseInt(volAguaExportada); // Atualizar o valor de "Volume água exportada"
+    data[0].values[8] = parseInt(volFaturadoMedido); // Atualizar o valor de "Volume água exportada"
+    data[0].values[9] = parseInt(volFaturadoNaoMedido); // Atualizar o valor de "Volume faturado não medido"
+    data[0].values[10] = parseInt(volNaoFaturadoMedido); // Atualizar o valor de "Volume não faturado medido"
+    data[0].values[11] = parseInt(volNaoFaturadoNaoMedido); // Atualizar o valor de "Volume não faturado não medido"
+    data[0].values[17] = parseInt(vazReservatorios); // Atualizar o valor de "Volume não faturado não medido"
 
     Plotly.react('chart', data, layout); // Replotar o gráfico com os novos dados
 
@@ -80,16 +137,24 @@ function updateData() {
     if (svgElement) {
         svgElement.style.background = 'transparent';
     };
-    atualizarLabels()
+
+    atualizarLabels(volEntrada, volAguaExportada, volFaturadoMedido, volFaturadoNaoMedido, volNaoFaturadoMedido, volNaoFaturadoNaoMedido, idm, qtdeRamaisPressurizados, percentualFraudes, vazReservatorios);
 };
 
-// Atualizar labels
-function atualizarLabels() {
-    const volumeEntrada = document.getElementById('volEntrada').value;
-    const volumeAutorizado = document.getElementById('consAutorizado').value;
 
-    document.getElementById('volumeEntrada').textContent = volumeEntrada;
-    document.getElementById('consumoAutorizado').textContent = volumeAutorizado;
+// Atualizar labels
+function atualizarLabels(volEntrada, volAguaExportada, volFaturadoMedido, volFaturadoNaoMedido, volNaoFaturadoMedido, volNaoFaturadoNaoMedido, idm, qtdeRamaisPressurizados, percentualFraudes, vazReservatorios) {
+
+    document.getElementById('volEntradaLabel').textContent = volEntrada;
+    document.getElementById('volAguaExportadaLabel').textContent = volAguaExportada;
+    document.getElementById('volFaturadoMedidoLabel').textContent = volFaturadoMedido;
+    document.getElementById('volFaturadoNaoMedidoLabel').textContent = volFaturadoNaoMedido;
+    document.getElementById('volNaoFaturadoMedidoLabel').textContent = volNaoFaturadoMedido;
+    document.getElementById('volNaoFaturadoNaoMedidoLabel').textContent = volNaoFaturadoNaoMedido;
+    document.getElementById('percentualIDMLabel').textContent = idm;
+    document.getElementById('qtdeRamaisPressurizadosLabel').textContent = qtdeRamaisPressurizados;
+    document.getElementById('percentualFraudesLabel').textContent = percentualFraudes;
+    document.getElementById('vazReservatoriosLabel').textContent = vazReservatorios;
 }
 
 window.onload = function() {
@@ -98,3 +163,7 @@ window.onload = function() {
         svgElement.style.background = 'transparent';
     }
 };
+
+document.onclick = function() {
+    console.log(data[0].labels, data[0].values);
+}

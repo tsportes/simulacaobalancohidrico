@@ -35,50 +35,15 @@ h1 {
     font-weight: 700;
 }
 
-#consumidoValue {
-    margin-top: -32px;
-}
-
-#produzidoValue {
-    margin-top: -32px;
-}
-
 .valorRange {
     margin-top: -32px;
     font-weight: 800;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    font: inherit;
-}
-
-form,
-datalist {
-    display: grid;
 }
 
 @media (max-width: 240px) {
     body {
         font-size: 0.75em;
     }
-}
-
-form {
-    --k: calc((var(--val) - var(--min))/ (var(--max) - var(--min)));
-    --pos: calc(1.125em + var(--k)*(100% - 2.25em));
-    grid-gap: 0.25em;
-    place-self: center;
-    min-width: 8em;
-    width: calc(100% - 1.5em);
-    filter: Saturate(var(--hl, 0));
-    transition: filter 0.3s ease-out;
-}
-
-form:focus-within,
-form:hover {
-    --hl: 1;
 }
 
 input[type=range] {
@@ -144,27 +109,6 @@ input[type=range]::-moz-range-thumb {
 
 input[type=range]:focus {
     outline: none;
-}
-
-datalist {
-    grid-row: 1;
-    grid-template-columns: calc(100vw / 1.5) 1fr calc(100vw / 1.5);
-    place-content: end center;
-    margin: 0 -0.375em;
-    color: #bababa;
-    text-align: center;
-    text-transform: uppercase;
-}
-
-datalist::after {
-    place-self: end center;
-    margin-bottom: 3px;
-    width: min(12em, 100%);
-    min-height: 0.5em;
-    grid-area: 1/2;
-    background: linear-gradient(90deg, transparent 2px, #f0ba22 0) -1px/1em round;
-    clip-path: polygon(0 calc(100% - 1px), 0 100%, 100% 100%, 100% 0);
-    content: "";
 }
 
 .min--max--label {
