@@ -79,48 +79,48 @@ function updateData() {
 
     var volNaoFaturadoNaoMedido = document.getElementById('volNaoFaturadoNaoMedido').value;
 
-    var vazReservatorios = parseInt(document.getElementById('vazReservatorios').value);
+    var vazReservatorios = document.getElementById('vazReservatorios').value;
 
     var percentualIDMinput = document.getElementById('percentualIDM').value;
     var idm = parseFloat(percentualIDMinput);
 
-    var percentualFraudes = parseFloat(document.getElementById('percentualFraudes').value);
+    var percentualFraudes = document.getElementById('percentualFraudes').value;
 
-    var qtdeRamaisPressurizados = parseInt(document.getElementById('qtdeRamaisPressurizados').value);
+    var qtdeRamaisPressurizados = (document.getElementById('qtdeRamaisPressurizados').value) / 1000;
 
-    var estimativaClandestinas = (qtdeRamaisPressurizados * 0.01);
-    var volClandestinas = parseInt(estimativaClandestinas * 34); // Calcula os clandestinos
+    var estimativaClandestinas = parseInt(qtdeRamaisPressurizados) * 0.01;
+    var volClandestinas = parseInt(estimativaClandestinas) * 34; // Calcula os clandestinos
     data[0].values[13] = volClandestinas; // Atualizar o valor de "Clandestinos"
 
     var estimativaFraudes = (percentualFraudes / 100);
-    var volFraudes = parseInt(estimativaFraudes * volFaturadoMedido); // Calcula as fraudes
+    var volFraudes = parseInt(estimativaFraudes) * parseInt(volFaturadoMedido); // Calcula as fraudes
     data[0].values[14] = volFraudes; // Atualizar o valor de "Fraudes"
 
-    var consAutorizadoNaoFaturado = parseInt(volNaoFaturadoMedido + volNaoFaturadoNaoMedido);
+    var consAutorizadoNaoFaturado = parseInt(volNaoFaturadoMedido) + parseInt(volNaoFaturadoNaoMedido);
     data[0].values[4] = consAutorizadoNaoFaturado; // Atualizar o valor de "CONS AUTORIZADO"
 
-    var consAutorizadoFaturado = parseInt(volAguaExportada + volFaturadoMedido + volFaturadoNaoMedido);
+    var consAutorizadoFaturado = parseInt(volAguaExportada) + parseInt(volFaturadoMedido) + parseInt(volFaturadoNaoMedido);
     data[0].values[3] = consAutorizadoFaturado; // Atualizar o valor de "CONS AUTORIZADO"
 
-    var consAutorizado = parseInt(consAutorizadoFaturado + consAutorizadoNaoFaturado);
+    var consAutorizado = parseInt(consAutorizadoFaturado) + parseInt(consAutorizadoNaoFaturado);
     data[0].values[1] = consAutorizado; // Atualizar o valor de "Consumo autorizado"
 
-    var volPerdas = parseInt(volEntrada - consAutorizado);
+    var volPerdas = parseInt(volEntrada) - parseInt(consAutorizado);
     data[0].values[2] = volPerdas; // Atualizar o valor de "Perdas"
 
-    var volSubmedicao = parseInt((consAutorizadoFaturado * (100 / idm)) - consAutorizadoFaturado); // Calcula a submedição
-    data[0].values[12] = volSubmedicao; // Atualizar o valor de "Submedição"
+    var volSubmedicao = ((parseInt(consAutorizadoFaturado) * (100 / parseInt(idm))) - parseInt(consAutorizadoFaturado)); // Calcula a submedição
+    data[0].values[12] = Math.floor(volSubmedicao); // Atualizar o valor de "Submedição"
 
-    var volPerdasAparentes = parseInt(volSubmedicao + volClandestinas + volFraudes);
+    var volPerdasAparentes = parseInt(volSubmedicao) + parseInt(volClandestinas) + parseInt(volFraudes);
     data[0].values[5] = volPerdasAparentes; // Atualizar o valor de "Perdas aparentes"
 
-    var volPerdasReais = parseInt(volPerdas - volPerdasAparentes);
+    var volPerdasReais = parseInt(volPerdas) - parseInt(volPerdasAparentes);
     data[0].values[6] = volPerdasReais; // Atualizar o valor de "Perdas reais"
 
-    var volVazamentoRamais = parseInt((volPerdas - volPerdasAparentes) * 0.8);
+    var volVazamentoRamais = ((parseInt(volPerdas) - parseInt(volPerdasAparentes)) * 0.8);
     data[0].values[15] = volVazamentoRamais; // Atualizar o valor de "Vazamento em ramais"
 
-    var volVazamentoRedes = parseInt(volPerdas - volPerdasReais - volVazamentoRamais);
+    var volVazamentoRedes = parseInt(volPerdas) - parseInt(volPerdasReais) - parseInt(volVazamentoRamais);
     data[0].values[16] = volVazamentoRedes; // Atualizar o valor de "Vazamento em redes"
 
     data[0].values[0] = parseInt(volEntrada); // Atualizar o "Volume de entrada"
@@ -166,4 +166,54 @@ window.onload = function() {
 
 document.onclick = function() {
     console.log(data[0].labels, data[0].values);
+
+    var volEntrada = document.getElementById('volEntrada').value;
+    var volAguaExportada = document.getElementById('volAguaExportada').value;
+    var volFaturadoMedido = document.getElementById('volFaturadoMedido').value;
+    var volFaturadoNaoMedido = document.getElementById('volFaturadoNaoMedido').value;
+    var volNaoFaturadoMedido = document.getElementById('volNaoFaturadoMedido').value;
+    var volNaoFaturadoNaoMedido = document.getElementById('volNaoFaturadoNaoMedido').value;
+    var vazReservatorios = document.getElementById('vazReservatorios').value;
+    var percentualIDMinput = document.getElementById('percentualIDM').value;
+    var idm = parseFloat(percentualIDMinput);
+    var percentualFraudes = document.getElementById('percentualFraudes').value;
+    var qtdeRamaisPressurizados = (document.getElementById('qtdeRamaisPressurizados').value) / 1000;
+    var estimativaClandestinas = parseInt(qtdeRamaisPressurizados) * 0.01;
+    var volClandestinas = parseInt(estimativaClandestinas) * 34;
+    var estimativaFraudes = (percentualFraudes / 100);
+    var volFraudes = parseInt(estimativaFraudes) * parseInt(volFaturadoMedido);
+    var consAutorizadoNaoFaturado = parseInt(volNaoFaturadoMedido) + parseInt(volNaoFaturadoNaoMedido);
+    var consAutorizadoFaturado = parseInt(volAguaExportada) + parseInt(volFaturadoMedido) + parseInt(volFaturadoNaoMedido);
+    var consAutorizado = parseInt(consAutorizadoFaturado) + parseInt(consAutorizadoNaoFaturado);
+    var volPerdas = parseInt(volEntrada) - parseInt(consAutorizado);
+    var volSubmedicao = ((parseInt(consAutorizadoFaturado) * (100 / parseInt(idm))) - parseInt(consAutorizadoFaturado));
+    var volPerdasAparentes = parseInt(volSubmedicao) + parseInt(volClandestinas) + parseInt(volFraudes);
+    var volPerdasReais = parseInt(volPerdas) - parseInt(volPerdasAparentes);
+    var volVazamentoRamais = ((parseInt(volPerdas) - parseInt(volPerdasAparentes)) * 0.8);
+    var volVazamentoRedes = parseInt(volPerdas) - parseInt(volPerdasReais) - parseInt(volVazamentoRamais);
+
+    console.log('volEntrada: ', volEntrada);
+    console.log('volAguaExportada: ', volAguaExportada);
+    console.log('volFaturadoMedido: ', volFaturadoMedido);
+    console.log('volFaturadoNaoMedido: ', volFaturadoNaoMedido);
+    console.log('volNaoFaturadoMedido: ', volNaoFaturadoMedido);
+    console.log('volNaoFaturadoNaoMedido: ', volNaoFaturadoNaoMedido);
+    console.log('vazReservatorios: ', vazReservatorios);
+    console.log('percentualIDMinput: ', percentualIDMinput);
+    console.log('idm: ', idm);
+    console.log('percentualFraudes: ', percentualFraudes);
+    console.log('qtdeRamaisPressurizados: ', qtdeRamaisPressurizados);
+    console.log('estimativaClandestinas: ', estimativaClandestinas);
+    console.log('volClandestinas: ', volClandestinas);
+    console.log('estimativaFraudes: ', estimativaFraudes);
+    console.log('consAutorizadoNaoFaturado: ', consAutorizadoNaoFaturado);
+    console.log('consAutorizadoFaturado: ', consAutorizadoFaturado);
+    console.log('consAutorizado: ', consAutorizado);
+    console.log('volPerdas: ', volPerdas);
+    console.log('volSubmedicao: ', volSubmedicao);
+    console.log('volPerdasAparentes: ', volPerdasAparentes);
+    console.log('volPerdasReais: ', volPerdasReais);
+    console.log('volVazamentoRamais: ', volVazamentoRamais);
+    console.log('volVazamentoRedes: ', volVazamentoRedes);
+
 }
