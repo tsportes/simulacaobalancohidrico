@@ -138,7 +138,7 @@ function updateData() {
         svgElement.style.background = 'transparent';
     };
 
-    atualizarLabels(volEntrada, volAguaExportada, volFaturadoMedido, volFaturadoNaoMedido, volNaoFaturadoMedido, volNaoFaturadoNaoMedido, idm, qtdeRamaisPressurizados, percentualFraudes, vazReservatorios);
+    atualizarLabels(volEntrada, volAguaExportada, volFaturadoMedido, volFaturadoNaoMedido, volNaoFaturadoMedido, volNaoFaturadoNaoMedido, idm, qtdeRamaisPressurizados, percentualFraudes, vazReservatorios, consAutorizado);
 };
 
 
