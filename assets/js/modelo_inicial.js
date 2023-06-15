@@ -61,6 +61,20 @@ var layout = {
     },
 };
 
+let inputElement = document.getElementById('volEntrada');
+inputElement.oninput = debounce(function() {
+    updateData();
+}, 250);
+
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        const context = this;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(context, args), wait);
+    }
+}
+
 Plotly.newPlot('chart', data, layout, {
     showSendToCloud: true
 });
