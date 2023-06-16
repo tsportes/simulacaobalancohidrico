@@ -18,23 +18,76 @@
     <div class="conteudo">
         <section class="controls">
             <div class="container">
+                <!-- Datalists -->
+                <datalist id="tickmarks_grandes_volumes">
+                    <option value="0">
+                    <option value="4000">
+                    <option value="8000">
+                    <option value="12000">
+                    <option value="16000">
+                    <option value="20000">
+                    <option value="24000">
+                    <option value="28000">
+                    <option value="32000">
+                    <option value="36000">
+                    <option value="40000">
+                    </datalist>
+                <datalist id="tickmarks_ligacoes">
+                    <option value="0">
+                    <option value="100000">
+                    <option value="200000">
+                    <option value="300000">
+                    <option value="400000">
+                    <option value="500000">
+                    <option value="600000">
+                    <option value="700000">
+                    <option value="800000">
+                    <option value="900000">
+                    <option value="100000">
+                    </datalist>
+                <datalist id="tickmarks_medios_volumes">
+                    <option value="0">
+                    <option value="150">
+                    <option value="300">
+                    <option value="450">
+                    <option value="600">
+                    <option value="750">
+                    <option value="900">
+                    <option value="1050">
+                    <option value="1200">
+                    <option value="1350">
+                    <option value="1500">
+                    </datalist>
+                <datalist id="tickmarks_pequenos_volumes">
+                    <option value="0">
+                    <option value="30">
+                    <option value="60">
+                    <option value="90">
+                    <option value="120">
+                    <option value="150">
+                    <option value="180">
+                    <option value="210">
+                    <option value="240">
+                    <option value="270">
+                    <option value="300">
+                    </datalist>
+                <datalist id="tickmarks_padrao">
+                    <option value="0">
+                    <option value="10">
+                    <option value="20">
+                    <option value="30">
+                    <option value="40">
+                    <option value="50">
+                    <option value="60">
+                    <option value="70">
+                    <option value="80">
+                    <option value="90">
+                    <option value="100">
+                    </datalist>
                 <!-- Informação do volume de entrada -->
                 <div class="slider-container">
                     <label for="volEntrada"><em>A</em> - Volume de entrada<br>(x 1 000 m³)</label>
-                    <input class="slider" type="range" id="volEntrada" name="volEntrada" min="0" max="40000" value="21250" orient="vertical" list="tickmarks_volEntrada" oninput="updateData()">
-                    <datalist id="tickmarks_volEntrada">
-                        <option value="0">
-                        <option value="4000">
-                        <option value="8000">
-                        <option value="12000">
-                        <option value="16000">
-                        <option value="20000">
-                        <option value="24000">
-                        <option value="28000">
-                        <option value="32000">
-                        <option value="36000">
-                        <option value="40000">
-                        </datalist>
+                    <input class="slider" type="range" id="volEntrada" name="volEntrada" min="0" max="40000" value="21250" orient="vertical" list="tickmarks_grandes_volumes" oninput="updateData()">
                     <div class="min--max--label">
                         <p>Min</p>
                         <p>Max</p>
@@ -44,20 +97,7 @@
                 <!-- Informação do volume faturado medido -->
                 <div class="slider-container">
                     <label for="volFaturadoMedido"><em>B</em> - Volume faturado medido<br>(x 1 000 m³)</label>
-                    <input class="slider" type="range" id="volFaturadoMedido" name="volFaturadoMedido" min="0" max="25000" value="13075" orient="vertical" list="tickmarks_volEntrada" oninput="updateData()">
-                    <datalist id="tickmarks_volEntrada">
-                        <option value="0">
-                        <option value="4000">
-                        <option value="8000">
-                        <option value="12000">
-                        <option value="16000">
-                        <option value="20000">
-                        <option value="24000">
-                        <option value="28000">
-                        <option value="32000">
-                        <option value="36000">
-                        <option value="40000">
-                        </datalist>
+                    <input class="slider" type="range" id="volFaturadoMedido" name="volFaturadoMedido" min="0" max="25000" value="13075" orient="vertical" list="tickmarks_grandes_volumes" oninput="updateData()">
                     <div class="min--max--label">
                         <p>Min</p>
                         <p>Max</p>
@@ -67,7 +107,7 @@
                 <!-- Informação do volume faturado não medido -->
                 <div class="slider-container">
                     <label for="volFaturadoNaoMedido"><em>C</em> - Volume faturado não medido<br>(x 1 000 m³)</label>
-                    <input class="slider" type="range" id="volFaturadoNaoMedido" name="volFaturadoNaoMedido" min="0" max="100" value="23" orient="vertical" oninput="updateData()">
+                    <input class="slider" type="range" id="volFaturadoNaoMedido" name="volFaturadoNaoMedido" min="0" max="100" value="23" orient="vertical" list="tickmarks_padrao" oninput="updateData()">
                     <div class="min--max--label">
                         <p>Min</p>
                         <p>Max</p>
@@ -77,7 +117,7 @@
                 <!-- Informação do volume não faturado medido -->
                 <div class="slider-container">
                     <label for="volNaoFaturadoMedido"><em>D</em> - Volume não faturado medido<br>(x 1 000 m³)</label>
-                    <input class="slider" type="range" id="volNaoFaturadoMedido" name="volNaoFaturadoMedido" min="0" max="100" value="39" orient="vertical" oninput="updateData()">
+                    <input class="slider" type="range" id="volNaoFaturadoMedido" name="volNaoFaturadoMedido" min="0" max="100" value="39" orient="vertical" list="tickmarks_padrao" oninput="updateData()">
                     <div class="min--max--label">
                         <p>Min</p>
                         <p>Max</p>
@@ -87,7 +127,7 @@
                 <!-- Informação do volume não faturado não medido -->
                 <div class="slider-container">
                     <label for="volNaoFaturadoNaoMedido"><em>E</em> - Volume não faturado não medido<br>(x 1 000 m³)</label>
-                    <input class="slider" type="range" id="volNaoFaturadoNaoMedido" name="volNaoFaturadoNaoMedido" min="0" max="1500" value="1100" orient="vertical" oninput="updateData()">
+                    <input class="slider" type="range" id="volNaoFaturadoNaoMedido" name="volNaoFaturadoNaoMedido" min="0" max="1500" value="1100" orient="vertical" list="tickmarks_medios_volumes" oninput="updateData()">
                     <div class="min--max--label">
                         <p>Min</p>
                         <p>Max</p>
@@ -97,7 +137,7 @@
                 <!-- Informação do volume de água exportada -->
                 <div class="slider-container">
                     <label for="volAguaExportada"><em>F</em> - Volume água exportada<br>(x 1 000 m³)</label>
-                    <input class="slider" type="range" id="volAguaExportada" name="volAguaExportada" min="0" max="200" value="60" orient="vertical" oninput="updateData()">
+                    <input class="slider" type="range" id="volAguaExportada" name="volAguaExportada" min="0" max="200" value="60" orient="vertical" list="tickmarks_pequenos_volumes" oninput="updateData()">
                     <div class="min--max--label">
                         <p>Min</p>
                         <p>Max</p>
@@ -107,7 +147,7 @@
                 <!-- Informação vazamento de reservatórios -->
                 <div class="slider-container">
                     <label for="vazReservatorios"><em>G</em> - Vazam. reservatórios<br>(x 1 000 m³)</label>
-                    <input class="slider" type="range" id="vazReservatorios" name="vazReservatorios" min="0" max="300" value="154" orient="vertical" oninput="updateData()">
+                    <input class="slider" type="range" id="vazReservatorios" name="vazReservatorios" min="0" max="300" value="154" orient="vertical" list="tickmarks_pequenos_volumes" oninput="updateData()">
                     <div class="min--max--label">
                         <p>Min</p>
                         <p>Max</p>
@@ -117,7 +157,7 @@
                 <!-- Informação do percentual de IDM -->
                 <div class="slider-container">
                     <label for="percentualIDM"><em>H</em> - IDM Índice Desemp. Medição (%)</label>
-                    <input class="slider" type="range" id="percentualIDM" name="percentualIDM" min="1" max="100" value="96.5" orient="vertical" step="0.1" oninput="updateData()">
+                    <input class="slider" type="range" id="percentualIDM" name="percentualIDM" min="1" max="100" value="96.5" orient="vertical" step="0.1" list="tickmarks_padrao" oninput="updateData()">
                     <div class="min--max--label">
                         <p>Min</p>
                         <p>Max</p>
@@ -127,7 +167,7 @@
                 <!-- Informação quantidade de ramais -->
                 <div class="slider-container">
                     <label for="qtdeRamaisPressurizados"><em>I</em> - Qtde de ramais pressurizados</label>
-                    <input class="slider" type="range" id="qtdeRamaisPressurizados" name="qtdeRamaisPressurizados" min="10000" max="800000" value="646180" orient="vertical" oninput="updateData()">
+                    <input class="slider" type="range" id="qtdeRamaisPressurizados" name="qtdeRamaisPressurizados" min="10000" max="800000" value="646180" orient="vertical" list="tickmarks_ligacoes" oninput="updateData()">
                     <div class="min--max--label">
                         <p>Min</p>
                         <p>Max</p>
@@ -137,7 +177,7 @@
                 <!-- Informação percentual de fraudes -->
                 <div class="slider-container">
                     <label for="percentualFraudes"><em>J</em> - Perc. de fraudes (atual: 2%)</label>
-                    <input class="slider" type="range" id="percentualFraudes" name="percentualFraudes" min="0" max="10" value="2" orient="vertical" step="0.1" oninput="updateData()">
+                    <input class="slider" type="range" id="percentualFraudes" name="percentualFraudes" min="0" max="10" value="2" orient="vertical" step="0.1" list="tickmarks_padrao" oninput="updateData()">
                     <div class="min--max--label">
                         <p>Min</p>
                         <p>Max</p>

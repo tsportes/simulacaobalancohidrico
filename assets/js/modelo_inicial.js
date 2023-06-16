@@ -21,24 +21,24 @@ var data = [{
         "VAZ RESERVATORIOS", //17
     ],
     "parents": [
-        "",
-        "VOL ENTRADA",
-        "VOL ENTRADA",
-        "CONS AUTORIZADO",
-        "CONS AUTORIZADO",
-        "VOL PERDAS",
-        "VOL PERDAS",
-        "FATURADO",
-        "FATURADO",
-        "FATURADO",
-        "NÃO FATURADO",
-        "NÃO FATURADO",
-        "APARENTES",
-        "APARENTES",
-        "APARENTES",
-        "REAIS",
-        "REAIS",
-        "REAIS",
+        "", // 0
+        "VOL ENTRADA", // 1
+        "VOL ENTRADA", // 2
+        "CONS AUTORIZADO", // 3
+        "CONS AUTORIZADO", // 4
+        "VOL PERDAS", // 5
+        "VOL PERDAS", // 6
+        "FATURADO", // 7
+        "FATURADO", // 8
+        "FATURADO", // 9
+        "NÃO FATURADO", // 10
+        "NÃO FATURADO", // 11
+        "APARENTES", // 12
+        "APARENTES", // 13
+        "APARENTES", // 14
+        "REAIS", // 15
+        "REAIS", // 16
+        "REAIS", // 17
     ],
     "values": [21250, 14297, 6953, 13158, 1139, 871, 6082, 60, 13075, 23, 39, 1100, 406, 204, 261, 4865, 1063, 154],
     "leaf": {

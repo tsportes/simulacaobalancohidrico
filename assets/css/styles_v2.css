@@ -17,11 +17,20 @@ body {
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: center;
-    margin: 0 10px 10px 10px;
+    margin: 0 10px;
+}
+
+.controls {
+    border-radius: 10px;
+    border-color: #d1d1d1;
+    border-style: solid;
+    border-width: 1pt;
+    background-color: #ffffff7a;
 }
 
 .container {
     display: flex;
+    margin: 10px;
 }
 
 .container--volumes {
@@ -32,7 +41,10 @@ body {
     justify-self: flex-start;
     margin: 0 10px;
     border-radius: 10px;
-    background: #f3f3f3;
+    border-color: #d1d1d1;
+    border-style: solid;
+    border-width: 1pt;
+    background-color: #ffffff7a;
 }
 
 .labels--titulos {
@@ -59,7 +71,7 @@ em {
 
 .plotagem {
     position: relative;
-    margin: 0 -105px;
+    margin: 0 -120px;
 }
 
 .slider {
