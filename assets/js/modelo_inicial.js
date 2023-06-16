@@ -40,7 +40,7 @@ var data = [{
         "REAIS",
         "REAIS",
     ],
-    "values": [256533, 171218, 85315, 157764, 13454, 25521, 59794, 756, 156731, 275, 493, 12960, 19732, 2653, 3134, 47835, 10555, 1403],
+    "values": [21250, 14297, 6953, 13158, 1139, 871, 6082, 60, 13075, 23, 39, 1100, 406, 204, 261, 4865, 1063, 154],
     "leaf": {
         "opacity": 0.4
     },
@@ -52,6 +52,9 @@ var data = [{
     "branchvalues": 'total'
 }];
 
+const estimClandestinas = 0.01
+const consClandestinas = 34
+
 var layout = {
     "margin": {
         "l": 0,
@@ -61,7 +64,8 @@ var layout = {
     },
 };
 
-let inputElement = document.getElementById('volEntrada');
+// Função debounce não aplicada
+/* let inputElement = document.getElementById('elemento');
 inputElement.oninput = debounce(function() {
     updateData();
 }, 250);
@@ -73,7 +77,7 @@ function debounce(func, wait) {
         clearTimeout(timeout);
         timeout = setTimeout(() => func.apply(context, args), wait);
     }
-}
+} */
 
 Plotly.newPlot('chart', data, layout, {
     showSendToCloud: true
@@ -102,8 +106,8 @@ function updateData() {
 
     var qtdeRamaisPressurizados = (document.getElementById('qtdeRamaisPressurizados').value) / 1000;
 
-    var estimativaClandestinas = parseInt(qtdeRamaisPressurizados) * 0.01;
-    var volClandestinas = parseInt(estimativaClandestinas) * 34; // Calcula os clandestinos
+    var estimativaClandestinas = parseInt(qtdeRamaisPressurizados) * estimClandestinas;
+    var volClandestinas = parseInt(estimativaClandestinas) * consClandestinas; // Calcula os clandestinos
     data[0].values[13] = volClandestinas; // Atualizar o valor de "Clandestinos"
 
     var estimativaFraudes = (percentualFraudes / 100);
@@ -152,24 +156,26 @@ function updateData() {
         svgElement.style.background = 'transparent';
     };
 
-    atualizarLabels(volEntrada, volAguaExportada, volFaturadoMedido, volFaturadoNaoMedido, volNaoFaturadoMedido, volNaoFaturadoNaoMedido, idm, qtdeRamaisPressurizados, percentualFraudes, vazReservatorios, consAutorizado);
+    atualizarLabels(volEntrada, volAguaExportada, volFaturadoMedido, volFaturadoNaoMedido, volNaoFaturadoMedido, volNaoFaturadoNaoMedido, idm, qtdeRamaisPressurizados, percentualFraudes, vazReservatorios, consAutorizado, consAutorizadoFaturado);
 };
 
 
 // Atualizar labels
-function atualizarLabels(volEntrada, volAguaExportada, volFaturadoMedido, volFaturadoNaoMedido, volNaoFaturadoMedido, volNaoFaturadoNaoMedido, idm, qtdeRamaisPressurizados, percentualFraudes, vazReservatorios, consAutorizado) {
+function atualizarLabels(volEntrada, volAguaExportada, volFaturadoMedido, volFaturadoNaoMedido, volNaoFaturadoMedido, volNaoFaturadoNaoMedido, idm, qtdeRamaisPressurizados, percentualFraudes, vazReservatorios, consAutorizado, consAutorizadoFaturado) {
 
     document.getElementById('volEntradaLabel').textContent = volEntrada;
+    document.getElementById('volEntradaLabel_').textContent = volEntrada;
     document.getElementById('volAguaExportadaLabel').textContent = volAguaExportada;
     document.getElementById('volFaturadoMedidoLabel').textContent = volFaturadoMedido;
     document.getElementById('volFaturadoNaoMedidoLabel').textContent = volFaturadoNaoMedido;
     document.getElementById('volNaoFaturadoMedidoLabel').textContent = volNaoFaturadoMedido;
     document.getElementById('volNaoFaturadoNaoMedidoLabel').textContent = volNaoFaturadoNaoMedido;
-    document.getElementById('percentualIDMLabel').textContent = idm;
+    document.getElementById('percentualIDMLabel').textContent = idm + '%';
     document.getElementById('qtdeRamaisPressurizadosLabel').textContent = qtdeRamaisPressurizados * 1000;
-    document.getElementById('percentualFraudesLabel').textContent = percentualFraudes;
+    document.getElementById('percentualFraudesLabel').textContent = percentualFraudes + '%';
     document.getElementById('vazReservatoriosLabel').textContent = vazReservatorios;
-    document.getElementById('consAutorizadoLabel').textContent = consAutorizado;
+    document.getElementById('consAutorizadoLabel_').textContent = consAutorizado;
+    document.getElementById('consAutorizadoFaturadoLabel_').textContent = consAutorizadoFaturado;
 }
 
 window.onload = function() {
@@ -193,8 +199,8 @@ document.onclick = function() {
     var idm = parseFloat(percentualIDMinput);
     var percentualFraudes = document.getElementById('percentualFraudes').value;
     var qtdeRamaisPressurizados = (document.getElementById('qtdeRamaisPressurizados').value) / 1000;
-    var estimativaClandestinas = parseInt(qtdeRamaisPressurizados) * 0.01;
-    var volClandestinas = parseInt(estimativaClandestinas) * 34;
+    var estimativaClandestinas = parseInt(qtdeRamaisPressurizados) * estimClandestinas;
+    var volClandestinas = parseInt(estimativaClandestinas) * consClandestinas;
     var estimativaFraudes = (percentualFraudes / 100);
     var volFraudes = parseFloat(estimativaFraudes) * parseInt(volFaturadoMedido);
     var consAutorizadoNaoFaturado = parseInt(volNaoFaturadoMedido) + parseInt(volNaoFaturadoNaoMedido);

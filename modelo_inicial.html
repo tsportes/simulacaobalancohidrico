@@ -14,34 +14,50 @@
 </head>
 
 <body>
-    <h1 class="titulo">Simulação do Balanço Hídrico</h1>
+    <h1 class="titulo">Simulação de Balanço Hídrico (BH)</h1>
     <div class="conteudo">
         <section class="controls">
             <div class="container">
                 <!-- Informação do volume de entrada -->
                 <div class="slider-container">
-                    <label for="volEntrada">Volume de entrada<br>(x 1 000 m³)</label>
-                    <input class="slider" type="range" id="volEntrada" name="volEntrada" min="0" max="40000" value="21130" orient="vertical">
+                    <label for="volEntrada"><em>A</em> - Volume de entrada<br>(x 1 000 m³)</label>
+                    <input class="slider" type="range" id="volEntrada" name="volEntrada" min="0" max="40000" value="21250" orient="vertical" list="tickmarks_volEntrada" oninput="updateData()">
+                    <datalist id="tickmarks_volEntrada">
+                        <option value="0">
+                        <option value="4000">
+                        <option value="8000">
+                        <option value="12000">
+                        <option value="16000">
+                        <option value="20000">
+                        <option value="24000">
+                        <option value="28000">
+                        <option value="32000">
+                        <option value="36000">
+                        <option value="40000">
+                        </datalist>
                     <div class="min--max--label">
                         <p>Min</p>
                         <p>Max</p>
                     </div>
-                    <span id="volEntradaLabel" class="valorRange">21130</span>
-                </div>
-                <!-- Informação do volume de água exportada -->
-                <div class="slider-container">
-                    <label for="volAguaExportada">Volume água exportada<br>(x 1 000 m³)</label>
-                    <input class="slider" type="range" id="volAguaExportada" name="volAguaExportada" min="0" max="200" value="60" orient="vertical" oninput="updateData()">
-                    <div class="min--max--label">
-                        <p>Min</p>
-                        <p>Max</p>
-                    </div>
-                    <span id="volAguaExportadaLabel" class="valorRange">60</span>
+                    <span id="volEntradaLabel" class="valorRange">21250</span>
                 </div>
                 <!-- Informação do volume faturado medido -->
                 <div class="slider-container">
-                    <label for="volFaturadoMedido">Volume faturado medido<br>(x 1 000 m³)</label>
-                    <input class="slider" type="range" id="volFaturadoMedido" name="volFaturadoMedido" min="0" max="25000" value="13075" orient="vertical" oninput="updateData()">
+                    <label for="volFaturadoMedido"><em>B</em> - Volume faturado medido<br>(x 1 000 m³)</label>
+                    <input class="slider" type="range" id="volFaturadoMedido" name="volFaturadoMedido" min="0" max="25000" value="13075" orient="vertical" list="tickmarks_volEntrada" oninput="updateData()">
+                    <datalist id="tickmarks_volEntrada">
+                        <option value="0">
+                        <option value="4000">
+                        <option value="8000">
+                        <option value="12000">
+                        <option value="16000">
+                        <option value="20000">
+                        <option value="24000">
+                        <option value="28000">
+                        <option value="32000">
+                        <option value="36000">
+                        <option value="40000">
+                        </datalist>
                     <div class="min--max--label">
                         <p>Min</p>
                         <p>Max</p>
@@ -50,7 +66,7 @@
                 </div>
                 <!-- Informação do volume faturado não medido -->
                 <div class="slider-container">
-                    <label for="volFaturadoNaoMedido">Volume faturado não medido<br>(x 1 000 m³)</label>
+                    <label for="volFaturadoNaoMedido"><em>C</em> - Volume faturado não medido<br>(x 1 000 m³)</label>
                     <input class="slider" type="range" id="volFaturadoNaoMedido" name="volFaturadoNaoMedido" min="0" max="100" value="23" orient="vertical" oninput="updateData()">
                     <div class="min--max--label">
                         <p>Min</p>
@@ -60,7 +76,7 @@
                 </div>
                 <!-- Informação do volume não faturado medido -->
                 <div class="slider-container">
-                    <label for="volNaoFaturadoMedido">Volume não faturado medido<br>(x 1 000 m³)</label>
+                    <label for="volNaoFaturadoMedido"><em>D</em> - Volume não faturado medido<br>(x 1 000 m³)</label>
                     <input class="slider" type="range" id="volNaoFaturadoMedido" name="volNaoFaturadoMedido" min="0" max="100" value="39" orient="vertical" oninput="updateData()">
                     <div class="min--max--label">
                         <p>Min</p>
@@ -70,7 +86,7 @@
                 </div>
                 <!-- Informação do volume não faturado não medido -->
                 <div class="slider-container">
-                    <label for="volNaoFaturadoNaoMedido">Volume não faturado não medido<br>(x 1 000 m³)</label>
+                    <label for="volNaoFaturadoNaoMedido"><em>E</em> - Volume não faturado não medido<br>(x 1 000 m³)</label>
                     <input class="slider" type="range" id="volNaoFaturadoNaoMedido" name="volNaoFaturadoNaoMedido" min="0" max="1500" value="1100" orient="vertical" oninput="updateData()">
                     <div class="min--max--label">
                         <p>Min</p>
@@ -78,19 +94,39 @@
                     </div>
                     <span id="volNaoFaturadoNaoMedidoLabel" class="valorRange">1100</span>
                 </div>
-                <!-- Informação do percentual de IDM -->
+                <!-- Informação do volume de água exportada -->
                 <div class="slider-container">
-                    <label for="percentualIDM">IDM - Índice Desempenho da Medição (%)</label>
-                    <input class="slider" type="range" id="percentualIDM" name="percentualIDM" min="1" max="100" value="96.5" orient="vertical" oninput="updateData()">
+                    <label for="volAguaExportada"><em>F</em> - Volume água exportada<br>(x 1 000 m³)</label>
+                    <input class="slider" type="range" id="volAguaExportada" name="volAguaExportada" min="0" max="200" value="60" orient="vertical" oninput="updateData()">
                     <div class="min--max--label">
                         <p>Min</p>
                         <p>Max</p>
                     </div>
-                    <span id="percentualIDMLabel" class="valorRange">96.5</span>
+                    <span id="volAguaExportadaLabel" class="valorRange">60</span>
+                </div>
+                <!-- Informação vazamento de reservatórios -->
+                <div class="slider-container">
+                    <label for="vazReservatorios"><em>G</em> - Vazam. reservatórios<br>(x 1 000 m³)</label>
+                    <input class="slider" type="range" id="vazReservatorios" name="vazReservatorios" min="0" max="300" value="154" orient="vertical" oninput="updateData()">
+                    <div class="min--max--label">
+                        <p>Min</p>
+                        <p>Max</p>
+                    </div>
+                    <span id="vazReservatoriosLabel" class="valorRange">154</span>
+                </div>
+                <!-- Informação do percentual de IDM -->
+                <div class="slider-container">
+                    <label for="percentualIDM"><em>H</em> - IDM Índice Desemp. Medição (%)</label>
+                    <input class="slider" type="range" id="percentualIDM" name="percentualIDM" min="1" max="100" value="96.5" orient="vertical" step="0.1" oninput="updateData()">
+                    <div class="min--max--label">
+                        <p>Min</p>
+                        <p>Max</p>
+                    </div>
+                    <span id="percentualIDMLabel" class="valorRange">96.5%</span>
                 </div>
                 <!-- Informação quantidade de ramais -->
                 <div class="slider-container">
-                    <label for="qtdeRamaisPressurizados">Quantidade de ramais pressurizados</label>
+                    <label for="qtdeRamaisPressurizados"><em>I</em> - Qtde de ramais pressurizados</label>
                     <input class="slider" type="range" id="qtdeRamaisPressurizados" name="qtdeRamaisPressurizados" min="10000" max="800000" value="646180" orient="vertical" oninput="updateData()">
                     <div class="min--max--label">
                         <p>Min</p>
@@ -100,23 +136,13 @@
                 </div>
                 <!-- Informação percentual de fraudes -->
                 <div class="slider-container">
-                    <label for="percentualFraudes">Percentual de fraudes (atual: 2%)</label>
-                    <input class="slider" type="range" id="percentualFraudes" name="percentualFraudes" min="0" max="10" value="2" orient="vertical" oninput="updateData()">
+                    <label for="percentualFraudes"><em>J</em> - Perc. de fraudes (atual: 2%)</label>
+                    <input class="slider" type="range" id="percentualFraudes" name="percentualFraudes" min="0" max="10" value="2" orient="vertical" step="0.1" oninput="updateData()">
                     <div class="min--max--label">
                         <p>Min</p>
                         <p>Max</p>
                     </div>
-                    <span id="percentualFraudesLabel" class="valorRange">2</span>
-                </div>
-                <!-- Informação vazamento de reservatórios -->
-                <div class="slider-container">
-                    <label for="vazReservatorios">Vazamento reservatórios<br>(x 1 000 m³)</label>
-                    <input class="slider" type="range" id="vazReservatorios" name="vazReservatorios" min="0" max="300" value="154" orient="vertical" oninput="updateData()">
-                    <div class="min--max--label">
-                        <p>Min</p>
-                        <p>Max</p>
-                    </div>
-                    <span id="vazReservatoriosLabel" class="valorRange">154</span>
+                    <span id="percentualFraudesLabel" class="valorRange">2%</span>
                 </div>
             </div>
         </section>
@@ -126,12 +152,22 @@
             </div>
         </section>
     </div>
+    <!-- Retorno das labels -->
     <section class="labels-volumes">
-        <!-- Retorno do consumo autorizado -->
+        <h2 class="labels--titulos"><em>Quadro de volumes:</em></h2>
+        <!-- Consumo autorizado -->
         <div class="container--volumes">
-            <h2 class="container--volumes-titulo">Consumo autorizado<br>(x 1 000 m³): <span id="consAutorizadoLabel" class="valorRange">13158</span></h2>
+            <h2 class="container--volumes-titulo">Volume de entrada (x 1 000 m³): <span id="volEntradaLabel_" class="valorRange--Titulos">21250</span></h2>
+        </div>
+        <!-- Consumo autorizado -->
+        <div class="container--volumes">
+            <h2 class="container--volumes-titulo">Consumo autorizado (x 1 000 m³): <span id="consAutorizadoLabel_" class="valorRange--Titulos">14297</span></h2>
+        </div>
+        <!-- Consumo autorizado faturado-->
+        <div class="container--volumes">
+            <h2 class="container--volumes-titulo">Consumo autorizado faturado (x 1 000 m³): <span id="consAutorizadoFaturadoLabel_" class="valorRange--Titulos">13158</span></h2>
+        </div>
     </section>
-    </div>
 </body>
 <script src="assets/js/modelo_inicial.js"></script>
 
