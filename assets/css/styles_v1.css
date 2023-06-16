@@ -6,16 +6,16 @@ body {
     background: linear-gradient(#f8f8f8, #d9d9d9);
 }
 
-.conteudo {}
-
-.container {
-    display: grid;
-    grid: auto-flow dense / repeat(5, 100px);
-    align-content: center;
-    justify-content: center;
+.conteudo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
     align-items: center;
-    justify-items: center;
+    margin: 10px;
 }
+
+.container {}
 
 .slider-container {
     height: 400px;
@@ -39,6 +39,7 @@ body {
 
 .titulo {
     text-align: center;
+    margin-bottom: 35px;
 }
 
 h1 {
@@ -120,6 +121,13 @@ input[type=range]::-moz-range-thumb {
 
 input[type=range]:focus {
     outline: none;
+}
+
+input[type=range][orient=vertical] {
+    writing-mode: bt-lr;
+    /* IE */
+    -webkit-appearance: slider-vertical;
+    /* Chromium */
 }
 
 .min--max--label {}

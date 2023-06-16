@@ -1,0 +1,90 @@
+@charset "UTF-8";
+body {
+    font-family: 'Roboto Condensed', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: linear-gradient(#f8f8f8, #d9d9d9);
+}
+
+.conteudo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px 10px 10px;
+}
+
+.container {
+    display: flex;
+}
+
+.slider-container {
+    max-height: 400px;
+    max-width: 80px;
+}
+
+.slider-container label {
+    display: block;
+    margin: 0 5px;
+    text-align: center;
+    min-height: 70px;
+    font-size: 0.83em;
+}
+
+.plotagem {
+    position: relative;
+    margin: 0 -89px;
+}
+
+.slider {
+    position: relative;
+    transform-origin: bottom;
+}
+
+.titulo {
+    text-align: center;
+    padding: 15px 10px 0 10px;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+.valorRange {
+    font-weight: 800;
+    position: relative;
+    top: -260px;
+    text-align: center;
+    display: block;
+}
+
+@media (max-width: 240px) {
+    body {
+        font-size: 0.75em;
+    }
+}
+
+input[type=range] {
+    height: 275px;
+    cursor: pointer;
+    max-width: 75px;
+    z-index: 1000;
+}
+
+input[type=range][orient=vertical] {
+    writing-mode: bt-lr;
+    /* IE */
+    -webkit-appearance: slider-vertical;
+    /* Chromium */
+}
+
+.min--max--label {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: -276px;
+    justify-content: space-between;
+    height: 273px;
+    font-weight: 200;
+    font-size: 10pt;
+    color: #a3a3a3;
+}
