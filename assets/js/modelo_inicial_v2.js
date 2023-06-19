@@ -83,6 +83,36 @@ Plotly.newPlot('chart', data, layout, {
     showSendToCloud: true
 });
 
+function getTotalValue(label) {
+    let total = 0;
+    for (let i = 0; i < data[0].labels.length; i++) {
+        if (data[0].parents[i] === label) {
+            total += data[0].values[i];
+        }
+    }
+    console.log("O total verificado é: ", total);
+    return total;
+}
+
+function updateValue(index, newValue) {
+    let parentLabel = data[0].parents[index];
+    let totalValue = getTotalValue(data[0].labels[index]);
+
+    if (newValue < totalValue) {
+        throw new Error("O valor (" + newValue + ") para " + data[0].labels[index] + " é menor que a soma dos seus filhos: " + totalValue + ".");
+    }
+
+    data[0].values[index] = newValue;
+
+    if (parentLabel) {
+        let parentIndex = data[0].labels.indexOf(parentLabel);
+        if (data[0].values[parentIndex] < getTotalValue(parentLabel)) {
+            throw new Error("O valor para " + parentLabel + ": " + getTotalValue(parentLabel) + " é menor que a soma dos seus filhos (" + data[0].values[parentIndex] + ") após a atualização de " + data[0].labels[index]);
+        }
+    }
+}
+
+
 function updateData() {
 
     // Verificar se os dados são válidos e depois envia para confirmação
@@ -102,6 +132,7 @@ function updateData() {
     var vazReservatorios = document.getElementById('vazReservatorios').value;
 
     var percentualIDMinput = document.getElementById('percentualIDM').value;
+
     var idm = parseFloat(percentualIDMinput);
 
     var percentualFraudes = document.getElementById('percentualFraudes').value;
@@ -109,47 +140,69 @@ function updateData() {
     var qtdeRamaisPressurizados = (document.getElementById('qtdeRamaisPressurizados').value) / 1000;
 
     var estimativaClandestinas = parseInt(qtdeRamaisPressurizados) * estimClandestinas;
+
     var volClandestinas = parseInt(estimativaClandestinas) * consClandestinas; // Calcula os clandestinos
-    data[0].values[13] = volClandestinas; // Atualizar o valor de "Clandestinos"
+    // data[0].values[13] = volClandestinas; // Atualizar o valor de "Clandestinos"
 
     var estimativaFraudes = (percentualFraudes / 100);
+
     var volFraudes = parseFloat(estimativaFraudes) * parseInt(volFaturadoMedido); // Calcula as fraudes
-    data[0].values[14] = Math.floor(volFraudes); // Atualizar o valor de "Fraudes"
+    // data[0].values[14] = Math.floor(volFraudes); // Atualizar o valor de "Fraudes"
 
     var consAutorizadoNaoFaturado = parseInt(volNaoFaturadoMedido) + parseInt(volNaoFaturadoNaoMedido);
-    data[0].values[4] = consAutorizadoNaoFaturado; // Atualizar o valor de "CONS AUTORIZADO"
+    // data[0].values[4] = consAutorizadoNaoFaturado; // Atualizar o valor de "CONS AUTORIZADO"
 
     var consAutorizadoFaturado = parseInt(volAguaExportada) + parseInt(volFaturadoMedido) + parseInt(volFaturadoNaoMedido);
-    data[0].values[3] = consAutorizadoFaturado; // Atualizar o valor de "CONS AUTORIZADO"
+    // data[0].values[3] = consAutorizadoFaturado; // Atualizar o valor de "CONS AUTORIZADO"
 
     var consAutorizado = parseInt(consAutorizadoFaturado) + parseInt(consAutorizadoNaoFaturado);
-    data[0].values[1] = consAutorizado; // Atualizar o valor de "Consumo autorizado"
+    //data[0].values[1] = consAutorizado; // Atualizar o valor de "Consumo autorizado"
 
     var volPerdas = parseInt(volEntrada) - parseInt(consAutorizado);
-    data[0].values[2] = volPerdas; // Atualizar o valor de "Perdas"
+    // data[0].values[2] = volPerdas; // Atualizar o valor de "Perdas"
 
     var volSubmedicao = ((parseInt(consAutorizadoFaturado) * (100 / parseInt(idm))) - parseInt(consAutorizadoFaturado)); // Calcula a submedição
-    data[0].values[12] = Math.floor(volSubmedicao); // Atualizar o valor de "Submedição"
+    // data[0].values[12] = Math.floor(volSubmedicao); // Atualizar o valor de "Submedição"
 
     var volPerdasAparentes = parseInt(volSubmedicao) + parseInt(volClandestinas) + parseInt(volFraudes);
-    data[0].values[5] = volPerdasAparentes; // Atualizar o valor de "Perdas aparentes"
+    // data[0].values[5] = volPerdasAparentes; // Atualizar o valor de "Perdas aparentes"
 
     var volPerdasReais = parseInt(volPerdas) - parseInt(volPerdasAparentes);
-    data[0].values[6] = volPerdasReais; // Atualizar o valor de "Perdas reais"
+    // data[0].values[6] = volPerdasReais; // Atualizar o valor de "Perdas reais"
 
     var volVazamentoRamais = ((parseInt(volPerdas) - parseInt(volPerdasAparentes)) * 0.8);
-    data[0].values[15] = Math.floor(volVazamentoRamais); // Atualizar o valor de "Vazamento em ramais"
+    // data[0].values[15] = Math.floor(volVazamentoRamais); // Atualizar o valor de "Vazamento em ramais"
 
     var volVazamentoRedes = (parseInt(volPerdasReais) - parseInt(vazReservatorios) - parseInt(volVazamentoRamais));
-    data[0].values[16] = volVazamentoRedes; // Atualizar o valor de "Vazamento em redes"
+    // data[0].values[16] = volVazamentoRedes; // Atualizar o valor de "Vazamento em redes"
 
-    data[0].values[0] = parseInt(volEntrada); // Atualizar o "Volume de entrada"
-    data[0].values[7] = parseInt(volAguaExportada); // Atualizar o valor de "Volume água exportada"
-    data[0].values[8] = parseInt(volFaturadoMedido); // Atualizar o valor de "Volume água exportada"
-    data[0].values[9] = parseInt(volFaturadoNaoMedido); // Atualizar o valor de "Volume faturado não medido"
-    data[0].values[10] = parseInt(volNaoFaturadoMedido); // Atualizar o valor de "Volume não faturado medido"
-    data[0].values[11] = parseInt(volNaoFaturadoNaoMedido); // Atualizar o valor de "Volume não faturado não medido"
-    data[0].values[17] = parseInt(vazReservatorios); // Atualizar o valor de "Volume não faturado não medido"
+    updateValue(13, volClandestinas); // Atualizar o valor de "Clandestinos"
+    updateValue(14, (Math.floor(volFraudes)));
+    updateValue(4, consAutorizadoNaoFaturado);
+    updateValue(3, consAutorizadoFaturado);
+    updateValue(1, consAutorizado);
+    updateValue(2, volPerdas);
+    updateValue(12, (Math.floor(volSubmedicao)));
+    updateData(5, volPerdasAparentes);
+    updateData(6, volPerdasReais);
+    updateData(15, (Math.floor(volVazamentoRamais)));
+    updateData(16, volVazamentoRedes);
+
+    updateData(0, volEntrada);
+    updateData(7, volAguaExportada);
+    updateData(8, volFaturadoMedido);
+    updateData(9, volFaturadoNaoMedido);
+    updateData(10, volNaoFaturadoMedido);
+    updateData(11, volNaoFaturadoNaoMedido);
+    updateData(17, vazReservatorios);
+
+    //data[0].values[0] = parseInt(volEntrada); // Atualizar o "Volume de entrada"
+    //data[0].values[7] = parseInt(volAguaExportada); // Atualizar o valor de "Volume água exportada"
+    //data[0].values[8] = parseInt(volFaturadoMedido); // Atualizar o valor de "Volume água exportada"
+    //data[0].values[9] = parseInt(volFaturadoNaoMedido); // Atualizar o valor de "Volume faturado não medido"
+    //data[0].values[10] = parseInt(volNaoFaturadoMedido); // Atualizar o valor de "Volume não faturado medido"
+    //data[0].values[11] = parseInt(volNaoFaturadoNaoMedido); // Atualizar o valor de "Volume não faturado não medido"
+    //data[0].values[17] = parseInt(vazReservatorios); // Atualizar o valor de "Volume não faturado não medido"
 
     Plotly.react('chart', data, layout); // Replotar o gráfico com os novos dados
 
