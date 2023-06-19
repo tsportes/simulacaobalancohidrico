@@ -109,8 +109,8 @@ function updateData() {
         throw new Error("O valor de submedição é maior que o volume de perdas...");
     } else if (Number(volPerdasReais) < Number(vazamentos)) {
         document.getElementById('btnAtualizar').classList.add("visivel");
-        alert('Esta operação fará com que o valor de perdas reais seja menor que o de vazamentos. Recarregue a página!');
-        throw new Error("O valor de submedição é maior que o volume de vazamentos...");
+        alert('Esta operação fará com que o valor de perdas seja menor que o de seus componentes. Se necessário, recarregue a página!');
+        throw new Error("O valor de perdas é menor que o de seus componentes...");
     } else {
         // Atribuir valores
         data[0].values[13] = volClandestinas; // Atualizar o valor de "Clandestinos"
