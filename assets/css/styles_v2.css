@@ -74,6 +74,35 @@ em {
     margin: 0 -120px;
 }
 
+.botao {
+    display: none;
+    position: relative;
+    border: 0;
+    line-height: 2.5;
+    padding: 0 20px;
+    font-size: 1rem;
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    border-radius: 15px;
+    background-color: rgb(31 119 180);
+    background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0));
+    box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6), inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+    margin: 10px;
+}
+
+.visivel {
+    display: inline-block;
+}
+
+.botao:active {
+    box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.6), inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.botao:hover {
+    background-color: rgb(255 127 14);
+}
+
 .slider {
     position: relative;
     transform-origin: bottom;
