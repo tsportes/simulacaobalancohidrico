@@ -123,6 +123,7 @@ input[type=range][orient=vertical] {
     /* IE */
     -webkit-appearance: slider-vertical;
     /* Chromium */
+    appearance: webkit;
 }
 
 .min--max--label {
