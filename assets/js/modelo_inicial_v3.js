@@ -68,7 +68,7 @@ Plotly.newPlot('chart', data, layout, {
     showSendToCloud: true
 });
 
-atualizarGauge(34.3);
+atualizarGauge(32.72);
 
 function updateData() {
 
@@ -141,15 +141,20 @@ function updateData() {
     // Replotar o gráfico com os novos dados
     Plotly.react('chart', data, layout);
 
-    let svgElement = document.querySelector('.main-svg');
-    if (svgElement) {
-        svgElement.style.background = 'transparent';
-    };
-
     // Chama função para plotar gráfico de perdas
     const indicePerdas = calcularIndice(consAutorizado, volEntrada);
     atualizarGauge(indicePerdas);
 
+    removerBackground();
+
+};
+
+function removerBackground() {
+    // Remove background
+    let svgElement_ = document.querySelectorAll('.main-svg');
+    for (let i = 0; i < svgElement_.length; i++) {
+        svgElement_[i].style.background = 'transparent';
+    }
 };
 
 // Atualizar labels
@@ -233,17 +238,11 @@ document.ondblclick = function() {
 // Plotar gráfico de perdas
 
 function calcularIndice(consAutorizado, volEntrada) {
-    // Código antigo e funcional
-    // return ((volumeProduzido - volumeConsumido) / volumeProduzido) * 100;
 
-    const baseIndice = 27.742249;
-    const incrementoPor1000VolumeConsumido = -4.50982088e-6;
-    const incrementoPor1000VolumeProduzido = 3.34325927e-6;
+    volPerdasTotal = volEntrada - consAutorizado;
+    percentualPerdas = (volPerdasTotal * 100) / volEntrada
 
-    const incrementoConsumido = (consAutorizado) * incrementoPor1000VolumeConsumido * 1000;
-    const incrementoProduzido = (volEntrada) * incrementoPor1000VolumeProduzido * 1000;
-
-    const indice = baseIndice + incrementoConsumido + incrementoProduzido;
+    const indice = percentualPerdas;
     return indice;
 }
 
@@ -278,6 +277,7 @@ function atualizarGauge(indice) {
     };
 
     Plotly.newPlot('gauge', [gaugeData]);
+    removerBackground();
 }
 
 window.onload = function() {
@@ -288,3 +288,11 @@ window.onload = function() {
     }
 
 };
+
+// document.onclick = function() {
+//     // Remove background
+//     let svgElement_ = document.querySelectorAll('.main-svg');
+//     for (let i = 0; i < svgElement_.length; i++) {
+//         svgElement_[i].style.background = 'transparent';
+//     }
+// }
