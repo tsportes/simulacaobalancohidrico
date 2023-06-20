@@ -73,6 +73,7 @@ em {
 .plotagem {
     position: relative;
     margin: 0 -110px;
+    top: -10px;
 }
 
 .botao {
@@ -163,7 +164,7 @@ input[type=range][orient=vertical] {
 }
 
 .footer-warning {
-    font-size: 0.7em;
+    font-size: 0.75em;
     color: #636363;
     margin: 20px 10px 0 10px;
 }
@@ -197,4 +198,22 @@ input[type=range][orient=vertical] {
     color: rgb(119 119 119);
     margin-left: 10px;
     font-size: 0.85em;
+}
+
+.endereco-pagina {
+    align-self: center;
+    margin-right: 29px;
+}
+
+.endereco-pagina img {
+    width: 150px;
+}
+
+.endereco-pagina legend {
+    width: 150px;
+    font-size: 0.75em;
+    color: rgb(119 119 119);
+    text-align: center;
+    margin-top: 5px;
+    line-height: 1.3em;
 }
