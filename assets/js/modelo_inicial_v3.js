@@ -68,6 +68,8 @@ Plotly.newPlot('chart', data, layout, {
     showSendToCloud: true
 });
 
+atualizarGauge(34.3);
+
 function updateData() {
 
     // Definição das variáveis
@@ -143,6 +145,11 @@ function updateData() {
     if (svgElement) {
         svgElement.style.background = 'transparent';
     };
+
+    // Chama função para plotar gráfico de perdas
+    const indicePerdas = calcularIndice(consAutorizado, volEntrada);
+    atualizarGauge(indicePerdas);
+
 };
 
 // Atualizar labels
@@ -162,13 +169,6 @@ function atualizarLabels(volEntrada, volAguaExportada, volFaturadoMedido, volFat
     document.getElementById('consAutorizadoLabel_').textContent = consAutorizado;
     document.getElementById('consAutorizadoFaturadoLabel_').textContent = consAutorizadoFaturado;
 }
-
-window.onload = function() {
-    let svgElement = document.querySelector('.main-svg');
-    if (svgElement) {
-        svgElement.style.background = 'transparent';
-    }
-};
 
 function recarregar() {
     location.reload()
@@ -229,3 +229,62 @@ document.ondblclick = function() {
     console.log('volVazamentoRedes: ', volVazamentoRedes);
 
 }
+
+// Plotar gráfico de perdas
+
+function calcularIndice(consAutorizado, volEntrada) {
+    // Código antigo e funcional
+    // return ((volumeProduzido - volumeConsumido) / volumeProduzido) * 100;
+
+    const baseIndice = 27.742249;
+    const incrementoPor1000VolumeConsumido = -4.50982088e-6;
+    const incrementoPor1000VolumeProduzido = 3.34325927e-6;
+
+    const incrementoConsumido = (consAutorizado) * incrementoPor1000VolumeConsumido * 1000;
+    const incrementoProduzido = (volEntrada) * incrementoPor1000VolumeProduzido * 1000;
+
+    const indice = baseIndice + incrementoConsumido + incrementoProduzido;
+    return indice;
+}
+
+function atualizarGauge(indice) {
+    let corIndicador;
+
+    if (indice <= 15) {
+        corIndicador = '#00bded';
+    } else if (indice <= 30) {
+        corIndicador = '#00a300';
+    } else if (indice <= 50) {
+        corIndicador = '#ffd349';
+    } else if (indice <= 75) {
+        corIndicador = '#ff0000';
+    } else {
+        corIndicador = '#990000';
+    }
+
+    const gaugeData = {
+        domain: { x: [0, 1], y: [0, 1] },
+        value: indice,
+        title: { text: 'Índice de Perdas de Água (%)' },
+        gauge: {
+            axis: { range: [0, 100] },
+            bar: { color: corIndicador },
+            bgcolor: 'white',
+            borderwidth: 2,
+            bordercolor: 'rgba(58, 71, 80, 0.9)'
+        },
+        type: 'indicator',
+        mode: 'gauge+number'
+    };
+
+    Plotly.newPlot('gauge', [gaugeData]);
+}
+
+window.onload = function() {
+    let svgElement = document.querySelectorAll('.main-svg');
+
+    for (let i = 0; i < svgElement.length; i++) {
+        svgElement[i].style.background = 'transparent';
+    }
+
+};

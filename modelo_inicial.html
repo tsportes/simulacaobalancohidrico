@@ -196,18 +196,23 @@
     </div>
     <!-- Retorno das labels -->
     <section class="labels-volumes">
-        <h2 class="labels--titulos"><em>Quadro de volumes:</em></h2>
-        <!-- Consumo autorizado -->
-        <div class="container--volumes">
-            <h2 class="container--volumes-titulo">Volume de entrada (x 1 000 m³): <span id="volEntradaLabel_" class="valorRange--Titulos">21250</span></h2>
+        <div class="labels--conteudo">
+            <h2 class="labels--titulos"><em>Quadro de volumes:</em></h2>
+            <!-- Consumo autorizado -->
+            <div class="container--volumes">
+                <h2 class="container--volumes-titulo">Volume de entrada (x 1 000 m³): <span id="volEntradaLabel_" class="valorRange--Titulos">21250</span></h2>
+            </div>
+            <!-- Consumo autorizado -->
+            <div class="container--volumes">
+                <h2 class="container--volumes-titulo">Consumo autorizado (x 1 000 m³): <span id="consAutorizadoLabel_" class="valorRange--Titulos">14297</span></h2>
+            </div>
+            <!-- Consumo autorizado faturado-->
+            <div class="container--volumes">
+                <h2 class="container--volumes-titulo">Consumo autorizado faturado (x 1 000 m³): <span id="consAutorizadoFaturadoLabel_" class="valorRange--Titulos">13158</span></h2>
+            </div>
         </div>
-        <!-- Consumo autorizado -->
-        <div class="container--volumes">
-            <h2 class="container--volumes-titulo">Consumo autorizado (x 1 000 m³): <span id="consAutorizadoLabel_" class="valorRange--Titulos">14297</span></h2>
-        </div>
-        <!-- Consumo autorizado faturado-->
-        <div class="container--volumes">
-            <h2 class="container--volumes-titulo">Consumo autorizado faturado (x 1 000 m³): <span id="consAutorizadoFaturadoLabel_" class="valorRange--Titulos">13158</span></h2>
+        <div class="labels--grafico-perdas">
+            <div id="gauge"></div>
         </div>
     </section>
     <button name="button" id="btnAtualizar" class="botao" onclick="recarregar()">Recarregar...</button>
