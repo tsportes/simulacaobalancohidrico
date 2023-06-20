@@ -136,7 +136,7 @@ function updateData() {
     }
 
     // Chama função atualizar labels
-    atualizarLabels(volEntrada, volAguaExportada, volFaturadoMedido, volFaturadoNaoMedido, volNaoFaturadoMedido, volNaoFaturadoNaoMedido, idm, qtdeRamaisPressurizados, percentualFraudes, vazReservatorios, consAutorizado, consAutorizadoFaturado);
+    atualizarLabels(volEntrada, volAguaExportada, volFaturadoMedido, volFaturadoNaoMedido, volNaoFaturadoMedido, volNaoFaturadoNaoMedido, idm, qtdeRamaisPressurizados, percentualFraudes, vazReservatorios, consAutorizado, consAutorizadoFaturado, volPerdas, volPerdasAparentes, volPerdasReais, consAutorizadoNaoFaturado);
 
     // Replotar o gráfico com os novos dados
     Plotly.react('chart', data, layout);
@@ -158,7 +158,7 @@ function removerBackground() {
 };
 
 // Atualizar labels
-function atualizarLabels(volEntrada, volAguaExportada, volFaturadoMedido, volFaturadoNaoMedido, volNaoFaturadoMedido, volNaoFaturadoNaoMedido, idm, qtdeRamaisPressurizados, percentualFraudes, vazReservatorios, consAutorizado, consAutorizadoFaturado) {
+function atualizarLabels(volEntrada, volAguaExportada, volFaturadoMedido, volFaturadoNaoMedido, volNaoFaturadoMedido, volNaoFaturadoNaoMedido, idm, qtdeRamaisPressurizados, percentualFraudes, vazReservatorios, consAutorizado, consAutorizadoFaturado, volPerdas, volPerdasAparentes, volPerdasReais, consAutorizadoNaoFaturado) {
 
     document.getElementById('volEntradaLabel').textContent = volEntrada;
     document.getElementById('volEntradaLabel_').textContent = volEntrada;
@@ -173,6 +173,13 @@ function atualizarLabels(volEntrada, volAguaExportada, volFaturadoMedido, volFat
     document.getElementById('vazReservatoriosLabel').textContent = vazReservatorios;
     document.getElementById('consAutorizadoLabel_').textContent = consAutorizado;
     document.getElementById('consAutorizadoFaturadoLabel_').textContent = consAutorizadoFaturado;
+    document.getElementById('consAutorizadoNaoFaturadoLabel_').textContent = consAutorizadoNaoFaturado;
+    document.getElementById('volPerdasLabel_').textContent = volPerdas;
+
+    document.getElementById('volPerdasAparentesLabel_').textContent = volPerdasAparentes;
+    document.getElementById('volPerdasReaisLabel_').textContent = volPerdasReais;
+
+
 }
 
 function recarregar() {

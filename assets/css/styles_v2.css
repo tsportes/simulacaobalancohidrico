@@ -72,7 +72,7 @@ em {
 
 .plotagem {
     position: relative;
-    margin: 0 -120px;
+    margin: 0 -110px;
 }
 
 .botao {
@@ -187,4 +187,14 @@ input[type=range][orient=vertical] {
     .footer {
         justify-self: center;
     }
+}
+
+.volperdas--total {
+    margin-top: 25px;
+}
+
+.volperdas--seccionado {
+    color: rgb(119 119 119);
+    margin-left: 10px;
+    font-size: 0.85em;
 }
